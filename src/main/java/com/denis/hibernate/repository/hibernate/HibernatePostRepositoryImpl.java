@@ -13,7 +13,9 @@ public class HibernatePostRepositoryImpl implements PostRepository
     {
         try (Session session = HibernateUtilities.getSession())
         {
-            return session.get(Post.class, id);
+            Post post = session.get(Post.class, id);
+            post.getTags().size();
+            return post;
         }
     }
 
@@ -55,7 +57,13 @@ public class HibernatePostRepositoryImpl implements PostRepository
     {
         try (Session session = HibernateUtilities.getSession())
         {
-            return session.createQuery("from Post").list();
+            List<Post> posts = session.createQuery("from Post").list();
+            for(int i = 0; i < posts.size(); i++)
+            {
+                Post post = posts.get(i);
+                post.getTags().size();
+            }
+            return posts;
         }
     }
 }

@@ -14,7 +14,7 @@ public class Writer
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")
     private List<Post> posts;
 

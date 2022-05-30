@@ -1,8 +1,5 @@
 package com.denis.hibernate.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,7 +17,7 @@ public class Post
     @JoinColumn(name = "writer_id")
     private Writer writer;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Tag> tags;
 
     public Post()

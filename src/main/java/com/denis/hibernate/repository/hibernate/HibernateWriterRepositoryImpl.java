@@ -1,6 +1,5 @@
 package com.denis.hibernate.repository.hibernate;
 
-import com.denis.hibernate.controller.PostController;
 import com.denis.hibernate.model.Post;
 import com.denis.hibernate.model.Writer;
 import com.denis.hibernate.repository.WriterRepository;
@@ -15,7 +14,14 @@ public class HibernateWriterRepositoryImpl implements WriterRepository
     {
         try (Session session = HibernateUtilities.getSession())
         {
-            return session.get(Writer.class, id);
+            Writer writer = session.get(Writer.class, id);
+            List<Post> posts = writer.getPosts();
+            for(int i = 0; i < posts.size(); i++)
+            {
+                Post post = posts.get(i);
+                post.getTags().size();
+            }
+            return writer;
         }
     }
 
@@ -69,7 +75,18 @@ public class HibernateWriterRepositoryImpl implements WriterRepository
     {
         try (Session session = HibernateUtilities.getSession())
         {
-            return session.createQuery("from Writer").list();
+            List<Writer> writers = session.createQuery("from Writer").list();
+            for(int i = 0; i < writers.size(); i++)
+            {
+                Writer writer = writers.get(i);
+                List<Post> posts = writer.getPosts();
+                for(int j = 0; j < posts.size(); j++)
+                {
+                    Post post = posts.get(j);
+                    post.getTags().size();
+                }
+            }
+            return writers;
         }
     }
 }
